@@ -1017,13 +1017,18 @@ void loop() {
 
     } 
 
-
-
-
-
     if (digitalRead(buttonApin) == HIGH){
-
-      beep(100);
+      if (shapesInSquares[joyUsed] == "circle"){
+        score ++;
+        beep(100);       
+      } else {
+        score --;
+        if (score < 0){
+          score = 0; 
+        }
+        beep(100);
+        beep(100); 
+      }
 
     }
 
@@ -1041,15 +1046,15 @@ void loop() {
 
 
 
-    if (shapesInSquares[joyUsed] == "circle"){
+//    if (shapesInSquares[joyUsed] == "circle"){
 
 
 
-      score ++;        
+//      score ++;        
 
 
 
-    }
+//  }
 
 
 
