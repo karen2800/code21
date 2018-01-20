@@ -2,11 +2,18 @@
 
 
 
+
+
+
+
 //DOWNLOAD LIBRARY FOR TIMER
 
-//http://www.thearduinomakerman.info/blog/2016/4/8/tutorial-delay-vs-timer
 
 class Points {
+
+
+
+
 
 
 
@@ -14,7 +21,15 @@ class Points {
 
 
 
+
+
+
+
     int x;
+
+
+
+
 
 
 
@@ -22,7 +37,15 @@ class Points {
 
 
 
+
+
+
+
     Points(int x, int y) {
+
+
+
+
 
 
 
@@ -30,7 +53,15 @@ class Points {
 
 
 
+
+
+
+
       this->y = y;
+
+
+
+
 
 
 
@@ -38,7 +69,15 @@ class Points {
 
 
 
+
+
+
+
 };
+
+
+
+
 
 
 
@@ -46,7 +85,15 @@ class Points {
 
 
 
+
+
+
+
 #include "Adafruit_GFX.h"
+
+
+
+
 
 
 
@@ -54,7 +101,15 @@ class Points {
 
 
 
+
+
+
+
 #include "time.h"
+
+
+
+
 
 
 
@@ -66,7 +121,19 @@ class Points {
 
 
 
+
+
+
+
+
+
+
+
 #define HT_DATA 2
+
+
+
+
 
 
 
@@ -74,7 +141,15 @@ class Points {
 
 
 
+
+
+
+
 #define HT_CS   4
+
+
+
+
 
 
 
@@ -86,7 +161,19 @@ class Points {
 
 
 
+
+
+
+
+
+
+
+
 // use this line for single matrix
+
+
+
+
 
 
 
@@ -94,7 +181,15 @@ class Points {
 
 
 
+
+
+
+
 // use this line for two matrices!
+
+
+
+
 
 
 
@@ -106,23 +201,51 @@ Adafruit_HT1632LEDMatrix matrix = Adafruit_HT1632LEDMatrix(HT_DATA, HT_WR, HT_CS
 
 
 
+
+
+
+
+
+
+
+
 int num = 0;
+
+
+
+
 
 
 
 int joyUsed; 
 
+
+
 int joyX = A0;
+
+
 
 int score; 
 
+
+
 int joyY = A1;
 
+
+
 elapsedMillis timeElapsed; 
+
 elapsedMillis timeElapsedOneRound;
+
 int buttonApin = 12;
 
+
+
 int buttonBpin = 13;
+
+
+
+
 
 
 
@@ -130,15 +253,31 @@ Points pts[]{Points(1,1),Points(9,1),Points(17,1),Points(1,9),Points(9,9),Points
 
 
 
+
+
+
+
 boolean start = true;
+
+
+
+
 
 
 
 void setup() {
 
 
+
+
+
 pinMode(9, OUTPUT);
+
   Serial.begin(9600);
+
+
+
+
 
 
 
@@ -146,7 +285,15 @@ pinMode(9, OUTPUT);
 
 
 
+
+
+
+
   matrix.fillScreen();
+
+
+
+
 
 
 
@@ -154,7 +301,15 @@ pinMode(9, OUTPUT);
 
 
 
+
+
+
+
   matrix.clearScreen();
+
+
+
+
 
 
 
@@ -162,81 +317,165 @@ pinMode(9, OUTPUT);
 
 
 
+
+
+
+
   joyUsed = 0;
+
+
 
   pinMode(buttonApin, INPUT_PULLUP);
 
+
+
   pinMode(buttonBpin, INPUT_PULLUP);
+
+
 
   score = 0; 
 
+
+
   //matrix.print("Play");
+
+
 
   //matrix.writeScreen();
 
+
+
   //delay(1000);
 
+
+
   boolean start = true;
+
+
 
 }
 
 
 
+
+
+
+
 void loop() {
+
+
 
   if (start) {
 
+
+
     matrix.print("Play");
+
+
 
     matrix.writeScreen();
 
+
+
     delay(1000);
+
+
 
     start = false;
 
+
+
   }
 
+
+
   matrix.clearScreen();
+
+
 
      //Serial.println(analogRead(joyX));
 
 
 
+
+
+
+
     int randomArray[] = {random(0,4), random(0,4), random(0,4), random(0,4), random(0,4), random(0,4)};
+
+
 
     String shapesInSquares[] = {" ", " ", " ", " ", " ", " "};     
 
+
+
     do {
+
+    
+
+
 
 
 
       //TIMER
 
+
+
        if (timeElapsed > 30000)
+
+
 
       {                                                        
 
+
+
          matrix.clearScreen();
+
+
 
          matrix.setCursor(0, 0);
 
+
+
          matrix.println("SCR");
+
+
 
           matrix.writeScreen();
 
+
+
           //matrix.print("Score: "); 
+
+
 
           matrix.println(score);
 
+
+
           matrix.writeScreen();  
+
+
 
           while(true){
 
+
+
                 
+
+
 
           }
 
+
+
       }
+
+
+
+
+
+
 
 
 
@@ -244,123 +483,247 @@ void loop() {
 
       
 
+
+
     matrix.clearScreen();
+
+
 
     Serial.println("in the for loop");
 
+
+
       Serial.println("After for loop to 6");
+
+
 
       Serial.println(joyUsed); 
 
+
+
       if(analogRead(joyX) > 700){ //moving right
+
+
 
       joyUsed++;
 
+
+
       if (joyUsed == 3){
+
+
 
         joyUsed = 0;   
 
+
+
         
 
+
+
       }
+
+
 
       if(joyUsed == 6) {
 
+
+
         joyUsed = 3; 
 
+
+
       }
+
+
 
       if (joyUsed > 5){
 
+
+
         joyUsed = 0;   
+
+
 
         
 
+
+
       }
 
+
+
     }
+
+
 
     if(analogRead(joyX) < 400){ //moving left
 
+
+
       joyUsed--;
+
+
 
       if (joyUsed < 0){
 
+
+
         joyUsed = 2;   
+
+
 
         
 
+
+
       }
+
+
 
       if(joyUsed == 2) {
 
+
+
         joyUsed = 5; 
+
+
 
       }
 
+
+
     }
+
+
+
+
 
 
 
     if(analogRead(joyY) < 400){ //moving down
 
+
+
       joyUsed = joyUsed + 3;
+
+
 
       if (joyUsed > 5){
 
+
+
         joyUsed = 0;   
+
+
 
         
 
+
+
       }
 
+
+
     }
+
+
+
+
 
 
 
     if(analogRead(joyY) > 700){ //moving up
 
+
+
       if (joyUsed > 2){
+
+
 
         joyUsed = joyUsed - 3; 
 
+
+
       } else {
+
+
 
         joyUsed = joyUsed + 3; 
 
+
+
       }
+
+
 
       if (joyUsed > 5){
 
+
+
         joyUsed = 0;   
 
+
+
       }
+
+
 
     }
 
 
 
+
+
+
+    if (digitalRead(buttonBpin) == HIGH){
+      timeElapsedOneRound = 5000; 
+    }
       Serial.println("before switch statement");
+
+
 
       Serial.println(joyUsed);
 
 
 
+
+
+
+
        
+
+
 
     for (int i = 0; i < 6; i++) { 
 
+
+
       
+
+
 
       switch(randomArray[i]){
 
 
 
+
+
+
+
         case 0:
+
+
 
           shapesInSquares[i] = "square"; 
 
+
+
           if(joyUsed == i){ 
+
+
+
+
 
 
 
@@ -368,11 +731,23 @@ void loop() {
 
 
 
+
+
+
+
             matrix.writeScreen();
 
 
 
+
+
+
+
           } else {
+
+
+
+
 
 
 
@@ -380,7 +755,15 @@ void loop() {
 
 
 
+
+
+
+
             matrix.writeScreen();
+
+
+
+
 
 
 
@@ -388,15 +771,31 @@ void loop() {
 
 
 
+
+
+
+
           break;
+
+
+
+
 
 
 
         case 1:
 
+
+
           shapesInSquares[i] = "rectangle";
 
+
+
           if(joyUsed == i){
+
+
+
+
 
 
 
@@ -404,11 +803,23 @@ void loop() {
 
 
 
+
+
+
+
             matrix.writeScreen();
 
 
 
+
+
+
+
           } else {
+
+
+
+
 
 
 
@@ -416,7 +827,15 @@ void loop() {
 
 
 
+
+
+
+
             matrix.writeScreen();
+
+
+
+
 
 
 
@@ -424,15 +843,31 @@ void loop() {
 
 
 
+
+
+
+
           break;
+
+
+
+
 
 
 
         case 2:
 
+
+
           shapesInSquares[i] = "circle";
 
+
+
           if(joyUsed == i){
+
+
+
+
 
 
 
@@ -440,11 +875,23 @@ void loop() {
 
 
 
+
+
+
+
             matrix.writeScreen();
 
 
 
+
+
+
+
           } else {
+
+
+
+
 
 
 
@@ -452,7 +899,15 @@ void loop() {
 
 
 
+
+
+
+
             matrix.writeScreen();
+
+
+
+
 
 
 
@@ -460,15 +915,31 @@ void loop() {
 
 
 
+
+
+
+
           break;
+
+
+
+
 
 
 
         case 3:
 
+
+
           shapesInSquares[i] = "triangle";
 
+
+
           if(joyUsed == i){
+
+
+
+
 
 
 
@@ -476,7 +947,15 @@ void loop() {
 
 
 
+
+
+
+
           matrix.writeScreen();
+
+
+
+
 
 
 
@@ -484,7 +963,15 @@ void loop() {
 
 
 
+
+
+
+
           matrix.drawTriangle(pts[i].x + 5, pts[i].y, pts[i].x, pts[i].y + 5, pts[i].x + 5, pts[i].y + 5, 1);
+
+
+
+
 
 
 
@@ -492,7 +979,15 @@ void loop() {
 
 
 
+
+
+
+
           }
+
+
+
+
 
 
 
@@ -500,7 +995,15 @@ void loop() {
 
 
 
+
+
+
+
       }
+
+
+
+
 
 
 
@@ -508,36 +1011,76 @@ void loop() {
 
 
 
+
+
+
+
     } 
 
 
+
+
+
     if (digitalRead(buttonApin) == HIGH){
+
       beep(100);
+
     }
+
+    if (digitalRead(buttonBpin) == HIGH){
+      timeElapsedOneRound = 5000; 
+    }
+
+
 
     delay(500);
 
+
+
     } while (timeElapsedOneRound < 5000);
+
+
 
     if (shapesInSquares[joyUsed] == "circle"){
 
+
+
       score ++;        
+
+
 
     }
 
+
+
     timeElapsedOneRound = 0;
+
+
 
     Serial.println("SCORE");
 
+
+
     Serial.println(score); 
 
+
+
     joyUsed = 0;  
+
 }
 
+
+
 void beep(unsigned char delayms){
+
   analogWrite(9, 180);      // Almost any value can be used except 0 and 255
+
                            // experiment to get the best tone
+
   delay(delayms);          // wait for a delayms ms
+
   analogWrite(9, 0);       // 0 turns it off
+
   delay(delayms);          // wait for a delayms ms  
-}  
+
+} 
