@@ -10,6 +10,8 @@ class Points {
 
 #include "Adafruit_GFX.h"
 #include "Adafruit_HT1632.h"
+#include "time.h"
+#include "stdio.h"
 
 #define HT_DATA 2
 #define HT_WR   3
@@ -22,6 +24,8 @@ class Points {
 Adafruit_HT1632LEDMatrix matrix = Adafruit_HT1632LEDMatrix(HT_DATA, HT_WR, HT_CS, HT_CS2);
 
 int num = 0;
+int joyX = A0;
+int joyY = A1;
 
 Points pts[]{Points(1,1),Points(9,1),Points(17,1),Points(1,9),Points(9,9),Points(17,9)};
 
@@ -31,30 +35,73 @@ void setup() {
   matrix.fillScreen();
   delay(500);
   matrix.clearScreen();
+  randomSeed(analogRead(0));
 }
 
 void loop() {
-  for (int i = 0; i < 6; i++) {
-    num = random(0,4);
-    switch(num){
-      case 0:
-        matrix.drawRect(pts[i].x, pts[i].y, 6, 6, 1);
-        matrix.writeScreen();
-        break;
-      case 1:
-        matrix.drawRect(pts[i].x, pts[i].y + 2, 6, 3, 1);
-        matrix.writeScreen();
-        break;
-      case 2:
-        matrix.drawCircle(pts[i].x + 2 , pts[i].y + 3, 3, 1);
-        matrix.writeScreen();
-        break;
-      case 3:
-        matrix.drawTriangle(pts[i].x + 5, pts[i].y, pts[i].x, pts[i].y + 5, pts[i].x + 5, pts[i].y + 5, 1);
-        matrix.writeScreen();
-        break;
+  matrix.clearScreen();
+  boolean joyS = false;
+  //while(true) {
+    for (int i = 0; i < 6; i++) {
+      num = random(0,4);
+
+      joyX = analogRead(joyX);
+      joyY = analogRead(joyY);
+
+      if (joyX >= 0 && joyX <= 7 && joyY >= 0 && joyY <= 7 &&
+        pts[i].x >= 0 && joyX <= 7 && joyY >= 0 && joyY <= 7) {
+        
+      }
+      
+      switch(num){
+        case 0:
+          if(joyX >= pts[i]-1 && joyX <= 7 && joyY >= 0 && joyY <= 7){
+            matrix.fillRect(pts[i].x, pts[i].y, 6, 6, 1);
+            matrix.writeScreen();
+          } else {
+            matrix.drawRect(pts[i].x, pts[i].y, 6, 6, 1);
+            matrix.writeScreen();
+          }
+          break;
+        case 1:
+          if(joyX >= 8 && joyX <= 15 && joyY >= 0 && joyY <= 7){
+            matrix.fillRect(pts[i].x, pts[i].y + 2, 6, 3, 1);
+            matrix.writeScreen();
+          } else {
+            matrix.drawRect(pts[i].x, pts[i].y + 2, 6, 3, 1);
+            matrix.writeScreen();
+          }
+          break;
+        case 2:
+          if(joyX >= 16 && joyX <= 23 && joyY >= 0 && joyY <= 7){
+            matrix.fillCircle(pts[i].x + 2 , pts[i].y + 3, 3, 1);
+            matrix.writeScreen();
+          } else {
+            matrix.drawCircle(pts[i].x + 2 , pts[i].y + 3, 3, 1);
+            matrix.writeScreen();
+          }
+          break;
+        case 3:
+          if(joyX >= 0 && joyX <= 7 && joyY >= 8 && joyY <= 15){
+          matrix.fillTriangle(pts[i].x + 5, pts[i].y, pts[i].x, pts[i].y + 5, pts[i].x + 5, pts[i].y + 5, 1);
+          matrix.writeScreen();
+          } else {
+          matrix.drawTriangle(pts[i].x + 5, pts[i].y, pts[i].x, pts[i].y + 5, pts[i].x + 5, pts[i].y + 5, 1);
+          matrix.writeScreen();
+          }
+          break;
+      }
+      //matrix.clearScreen();
+      joyS = false;
     }
-  }
+    delay(500);
+  //}
+  /*
+  matrix.drawPixel(analogRead(A0) % 23, analogRead(A1) % 15, 1);
+  matrix.writeScreen();
+
+  delay(10);*/
+  
   while(true){
     
   }
