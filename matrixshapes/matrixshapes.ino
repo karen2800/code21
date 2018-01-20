@@ -1,3 +1,6 @@
+
+
+
 #include "Adafruit_GFX.h"
 #include "Adafruit_HT1632.h"
 
@@ -20,6 +23,18 @@ void setup() {
 }
 
 void loop() {
+  //Draw a Square
+  matrix.drawRect(pts[].x, pts[].y, 6, 6, 1);
+  
+//Draw a Rectangle
+  matrix.drawRect(pts[].x, pts[].y, 6, 3, 1);
+
+// Draw a Circle
+  matrix.drawCircle(pts[].x, pts[].y, 3,);
+
+// Draw a Triangle
+  matrix.drawTriangle(pts[].);
+  
   //matrix.drawLine(9, 6, 12, 
   //matrix.drawTriangle(9, 6, 12, 1, 14, 6, 1);
   matrix.fillTriangle(9, 6, 12, 1, 14, 6, 1);
