@@ -1,3 +1,9 @@
+class Points {
+  public:
+    int x;
+    int y; 
+};
+
 #include "Adafruit_GFX.h"
 #include "Adafruit_HT1632.h"
 
