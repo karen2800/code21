@@ -80,15 +80,17 @@ void setup() {
 }
 
 void loop() {
-
-  if (digitalRead(buttonApin) == LOW){
-    Serial.println("BUTTON pushed"); 
-  }
-
- 
+  
   matrix.clearScreen();
      //Serial.println(analogRead(joyX));
-    if(analogRead(joyX) > 700){ //moving right
+
+    int randomArray[] = {random(0,4), random(0,4), random(0,4), random(0,4), random(0,4), random(0,4)}; 
+    do {
+    matrix.clearScreen();
+    Serial.println("in the for loop");
+      Serial.println("After for loop to 6");
+      Serial.println(joyUsed); 
+      if(analogRead(joyX) > 700){ //moving right
       joyUsed++;
       if (joyUsed == 3){
         joyUsed = 0;   
@@ -131,12 +133,14 @@ void loop() {
         joyUsed = 0;   
       }
     }
-     
-    for (int i = 0; i < 6; i++) {
-      Serial.println("in the for loop" + i); 
-      num = random(0,4);
-     
-      switch(num){
+
+      Serial.println("before switch statement");
+      Serial.println(joyUsed);
+
+       
+    for (int i = 0; i < 6; i++) { 
+      
+      switch(randomArray[i]){
 
         case 0:
 
@@ -214,10 +218,12 @@ void loop() {
 
       //matrix.clearScreen();
 
-    }
+    } 
 
     delay(500);
-
+    } while (digitalRead(buttonApin) == LOW);       
+    //Serial.println("BUTTON pushed");
+    joyUsed = 0;  
   /*
 
   matrix.drawPixel(analogRead(A0) % 23, analogRead(A1) % 15, 1);
