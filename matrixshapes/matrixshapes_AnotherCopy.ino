@@ -1,3 +1,5 @@
+//DOWNLOAD LIBRARY FOR TIMER
+//http://www.thearduinomakerman.info/blog/2016/4/8/tutorial-delay-vs-timer
 class Points {
 
   public:
@@ -16,7 +18,7 @@ class Points {
 
 };
 
-
+#include <elapsedMillis.h>
 
 #include "Adafruit_GFX.h"
 
@@ -54,7 +56,7 @@ int joyUsed;
 int joyX = A0;
 int score; 
 int joyY = A1;
-
+elapsedMillis timeElapsed; 
 int buttonApin = 12;
 
 Points pts[]{Points(1,1),Points(9,1),Points(17,1),Points(1,9),Points(9,9),Points(17,9)};
@@ -88,6 +90,17 @@ void loop() {
     int randomArray[] = {random(0,4), random(0,4), random(0,4), random(0,4), random(0,4), random(0,4)};
     String shapesInSquares[] = {" ", " ", " ", " ", " ", " "};     
     do {
+
+      //TIMER
+       if (timeElapsed > 10000)
+      {                                                        
+          while(true){
+            matrix.clearScreen();                   
+          }
+      }
+
+
+      
     matrix.clearScreen();
     Serial.println("in the for loop");
       Serial.println("After for loop to 6");
