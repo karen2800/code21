@@ -19,6 +19,13 @@ void setup() {
 }
 
 void loop() {
+  //Rectangle
+  matrix.clearScreen();
+  matrix.drawRect(17, 1, 6, 6, 1);
+  matrix.writeScreen();
+  delay(0);
+  
+  
   matrix.clearScreen();
    // draw a pixel!
   matrix.drawPixel(0, 0, 1);
