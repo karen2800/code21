@@ -52,7 +52,7 @@ int num = 0;
 
 int joyUsed; 
 int joyX = A0;
-
+int score; 
 int joyY = A1;
 
 int buttonApin = 12;
@@ -77,6 +77,7 @@ void setup() {
 
   joyUsed = 0;
   pinMode(buttonApin, INPUT_PULLUP);
+  score = 0; 
 }
 
 void loop() {
@@ -84,7 +85,8 @@ void loop() {
   matrix.clearScreen();
      //Serial.println(analogRead(joyX));
 
-    int randomArray[] = {random(0,4), random(0,4), random(0,4), random(0,4), random(0,4), random(0,4)}; 
+    int randomArray[] = {random(0,4), random(0,4), random(0,4), random(0,4), random(0,4), random(0,4)};
+    String shapesInSquares[] = {" ", " ", " ", " ", " ", " "};     
     do {
     matrix.clearScreen();
     Serial.println("in the for loop");
@@ -143,7 +145,7 @@ void loop() {
       switch(randomArray[i]){
 
         case 0:
-
+          shapesInSquares[i] = "square"; 
           if(joyUsed == i){ 
 
             matrix.fillRect(pts[i].x, pts[i].y, 6, 6, 1);
@@ -161,7 +163,7 @@ void loop() {
           break;
 
         case 1:
-
+          shapesInSquares[i] = "rectangle";
           if(joyUsed == i){
 
             matrix.fillRect(pts[i].x, pts[i].y + 2, 6, 3, 1);
@@ -179,7 +181,7 @@ void loop() {
           break;
 
         case 2:
-
+          shapesInSquares[i] = "circle";
           if(joyUsed == i){
 
             matrix.fillCircle(pts[i].x + 2 , pts[i].y + 3, 3, 1);
@@ -197,7 +199,7 @@ void loop() {
           break;
 
         case 3:
-
+          shapesInSquares[i] = "triangle";
           if(joyUsed == i){
 
           matrix.fillTriangle(pts[i].x + 5, pts[i].y, pts[i].x, pts[i].y + 5, pts[i].x + 5, pts[i].y + 5, 1);
@@ -221,8 +223,12 @@ void loop() {
     } 
 
     delay(500);
-    } while (digitalRead(buttonApin) == LOW);       
-    //Serial.println("BUTTON pushed");
+    } while (digitalRead(buttonApin) == LOW);
+    if (shapesInSquares[joyUsed] == "circle"){
+      score ++;        
+    }
+    Serial.println("SCORE");
+    Serial.println(score); 
     joyUsed = 0;  
   /*
 
