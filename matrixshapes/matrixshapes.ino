@@ -34,6 +34,31 @@ void setup() {
 }
 
 void loop() {
+  for (int i = 0; i < 6; i++) {
+    num = random(0,4);
+    switch(num){
+      case 0:
+        matrix.drawRect(pts[i].x, pts[i].y, 6, 6, 1);
+        matrix.writeScreen();
+        break;
+      case 1:
+        matrix.drawRect(pts[i].x, pts[i].y + 2, 6, 3, 1);
+        matrix.writeScreen();
+        break;
+      case 2:
+        matrix.drawCircle(pts[i].x + 2 , pts[i].y + 3, 3, 1);
+        matrix.writeScreen();
+        break;
+      case 3:
+        matrix.drawTriangle(pts[i].x + 5, pts[i].y, pts[i].x, pts[i].y + 5, pts[i].x + 5, pts[i].y + 5, 1);
+        matrix.writeScreen();
+        break;
+    }
+  }
+  while(true){
+    
+  }
+  /*
   //Draw a Square
   matrix.drawRect(pts[0].x, pts[0].y, 6, 6, 1);
     matrix.writeScreen();
@@ -48,7 +73,7 @@ void loop() {
   
   // Draw a Triangle
     matrix.drawTriangle(pts[3].x + 5, pts[3].y, pts[3].x, pts[3].y + 5, pts[3].x + 5, pts[3].y + 5, 1);
-  matrix.writeScreen();
+  matrix.writeScreen();*/
  /*   
   //Rectangle
   matrix.drawRect(17, 1, 6, 6, 1);
