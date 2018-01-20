@@ -1,5 +1,12 @@
-
-
+class Points {
+  public:
+    int x;
+    int y; 
+    Points(int x, int y) {
+      this->x = x;
+      this->y = y;
+    }
+};
 
 #include "Adafruit_GFX.h"
 #include "Adafruit_HT1632.h"
@@ -14,6 +21,10 @@
 // use this line for two matrices!
 Adafruit_HT1632LEDMatrix matrix = Adafruit_HT1632LEDMatrix(HT_DATA, HT_WR, HT_CS, HT_CS2);
 
+int num = 0;
+
+Points pts[]{Points(1,1),Points(9,1),Points(17,1),Points(1,9),Points(9,9),Points(17,9)};
+
 void setup() {
   Serial.begin(9600);
   matrix.begin(ADA_HT1632_COMMON_16NMOS);
@@ -24,24 +35,44 @@ void setup() {
 
 void loop() {
   //Draw a Square
-  matrix.drawRect(pts[].x, pts[].y, 6, 6, 1);
+  matrix.drawRect(pts[0].x, pts[0].y, 6, 6, 1);
+    matrix.writeScreen();
   
-//Draw a Rectangle
-  matrix.drawRect(pts[].x, pts[].y, 6, 3, 1);
-
-// Draw a Circle
-  matrix.drawCircle(pts[].x, pts[].y, 3,);
-
-// Draw a Triangle
-  matrix.drawTriangle(pts[].);
+  //Draw a Rectangle
+    matrix.drawRect(pts[1].x, pts[1].y + 2, 6, 3, 1);
+      matrix.writeScreen();
   
-  //matrix.drawLine(9, 6, 12, 
-  //matrix.drawTriangle(9, 6, 12, 1, 14, 6, 1);
-  matrix.fillTriangle(9, 6, 12, 1, 14, 6, 1);
+  // Draw a Circle
+     matrix.drawCircle(pts[2].x + 2 , pts[2].y + 3, 3, 1);
+       matrix.writeScreen();
+  
+  // Draw a Triangle
+    matrix.drawTriangle(pts[3].x + 5, pts[3].y, pts[3].x, pts[3].y + 5, pts[3].x + 5, pts[3].y + 5, 1);
   matrix.writeScreen();
+ /*   
+  //Rectangle
+  matrix.drawRect(17, 1, 6, 6, 1);
+  matrix.writeScreen();
+  delay(0);
+  
+  //matrix.fillTriangle(9, 6, 12, 1, 14, 6, 1);
+  matrix.drawTriangle(9, 6, 12, 1, 14, 6, 1);
+  matrix.writeScreen();
+*/
+/*
+    refX = 0;
+  refY = 0;
+  matrix.drawTriangle((refX + 9), (refY + 6), (refX + 14), (refY + 1), (refX + 14), (refY + 6), 1);
+  matrix.writeScreen();
+
+  refX = -8;
+  refY = 0;
+  matrix.drawTriangle((refX + 9), (refY + 6), (refX + 14), (refY + 1), (refX + 14), (refY + 6), 1);
+  matrix.writeScreen();*/
   
 
  /* 
+
   matrix.clearScreen();
    // draw a pixel!
   matrix.drawPixel(0, 0, 1);
