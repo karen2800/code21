@@ -1,3 +1,5 @@
+#include <elapsedMillis.h>
+
 //DOWNLOAD LIBRARY FOR TIMER
 //http://www.thearduinomakerman.info/blog/2016/4/8/tutorial-delay-vs-timer
 class Points {
@@ -58,10 +60,11 @@ int score;
 int joyY = A1;
 elapsedMillis timeElapsed; 
 int buttonApin = 12;
+int buttonBpin = 13;
 
 Points pts[]{Points(1,1),Points(9,1),Points(17,1),Points(1,9),Points(9,9),Points(17,9)};
 
-
+boolean start = true;
 
 void setup() {
 
@@ -79,11 +82,21 @@ void setup() {
 
   joyUsed = 0;
   pinMode(buttonApin, INPUT_PULLUP);
+  pinMode(buttonBpin, INPUT_PULLUP);
   score = 0; 
+  //matrix.print("Play");
+  //matrix.writeScreen();
+  //delay(1000);
+  boolean start = true;
 }
 
 void loop() {
-  
+  if (start) {
+    matrix.print("Play");
+    matrix.writeScreen();
+    delay(1000);
+    start = false;
+  }
   matrix.clearScreen();
      //Serial.println(analogRead(joyX));
 
@@ -94,8 +107,15 @@ void loop() {
       //TIMER
        if (timeElapsed > 10000)
       {                                                        
+         matrix.clearScreen();
+         matrix.setCursor(0, 0);
+         matrix.println("SCR");
+          matrix.writeScreen();
+          //matrix.print("Score: "); 
+          matrix.println(score);
+          matrix.writeScreen();  
           while(true){
-            matrix.clearScreen();                   
+                
           }
       }
 
@@ -240,6 +260,7 @@ void loop() {
     if (shapesInSquares[joyUsed] == "circle"){
       score ++;        
     }
+
     Serial.println("SCORE");
     Serial.println(score); 
     joyUsed = 0;  
