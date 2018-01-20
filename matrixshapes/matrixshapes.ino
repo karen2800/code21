@@ -16,16 +16,24 @@ void setup() {
   matrix.begin(ADA_HT1632_COMMON_16NMOS);
   matrix.fillScreen();
   delay(500);
+  matrix.clearScreen();
 }
 
 void loop() {
+
   //Rectangle
   matrix.clearScreen();
   matrix.drawRect(17, 1, 6, 6, 1);
   matrix.writeScreen();
   delay(0);
   
+  //matrix.fillTriangle(9, 6, 12, 1, 14, 6, 1);
+  matrix.drawTriangle(9, 6, 12, 1, 14, 6, 1);
+  matrix.writeScreen();
   
+
+ /* 
+
   matrix.clearScreen();
    // draw a pixel!
   matrix.drawPixel(0, 0, 1);
@@ -76,5 +84,5 @@ void loop() {
 
   delay(2000);
 
-  // whew!
+  // whew!*/
 }
