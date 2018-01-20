@@ -1,3 +1,9 @@
+class Points {
+  public:
+    int x;
+    int y; 
+};
+
 #include "Adafruit_GFX.h"
 #include "Adafruit_HT1632.h"
 
@@ -20,13 +26,20 @@ void setup() {
 }
 
 void loop() {
-  //matrix.drawLine(9, 6, 12, 
-  //matrix.drawTriangle(9, 6, 12, 1, 14, 6, 1);
-  matrix.fillTriangle(9, 6, 12, 1, 14, 6, 1);
+
+  //Rectangle
+  matrix.clearScreen();
+  matrix.drawRect(17, 1, 6, 6, 1);
+  matrix.writeScreen();
+  delay(0);
+  
+  //matrix.fillTriangle(9, 6, 12, 1, 14, 6, 1);
+  matrix.drawTriangle(9, 6, 12, 1, 14, 6, 1);
   matrix.writeScreen();
   
 
  /* 
+
   matrix.clearScreen();
    // draw a pixel!
   matrix.drawPixel(0, 0, 1);
