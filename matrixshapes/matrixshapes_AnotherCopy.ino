@@ -50,11 +50,12 @@ Adafruit_HT1632LEDMatrix matrix = Adafruit_HT1632LEDMatrix(HT_DATA, HT_WR, HT_CS
 
 int num = 0;
 
+int joyUsed; 
 int joyX = A0;
 
 int joyY = A1;
 
-
+int buttonApin = 12;
 
 Points pts[]{Points(1,1),Points(9,1),Points(17,1),Points(1,9),Points(9,9),Points(17,9)};
 
@@ -73,27 +74,73 @@ void setup() {
   matrix.clearScreen();
 
   randomSeed(analogRead(0));
-  joyX = analogRead(joyX);
-  joyY = analogRead(joyY);
 
+  joyUsed = 0;
+  pinMode(buttonApin, INPUT_PULLUP);
 }
 
-
-
 void loop() {
-  matrix.clearScreen();
-    if(analogRead(joyX > 700)
-  //while(true) {
-   
-    for (int i = 0; i < 6; i++) {
 
+  if (digitalRead(buttonApin) == LOW){
+    Serial.println("BUTTON pushed"); 
+  }
+
+ 
+  matrix.clearScreen();
+     //Serial.println(analogRead(joyX));
+    if(analogRead(joyX) > 700){ //moving right
+      joyUsed++;
+      if (joyUsed == 3){
+        joyUsed = 0;   
+        
+      }
+      if(joyUsed == 6) {
+        joyUsed = 3; 
+      }
+      if (joyUsed > 5){
+        joyUsed = 0;   
+        
+      }
+    }
+    if(analogRead(joyX) < 400){ //moving left
+      joyUsed--;
+      if (joyUsed < 0){
+        joyUsed = 2;   
+        
+      }
+      if(joyUsed == 2) {
+        joyUsed = 5; 
+      }
+    }
+
+    if(analogRead(joyY) < 400){ //moving down
+      joyUsed = joyUsed + 3;
+      if (joyUsed > 5){
+        joyUsed = 0;   
+        
+      }
+    }
+
+    if(analogRead(joyY) > 700){ //moving up
+      if (joyUsed > 2){
+        joyUsed = joyUsed - 3; 
+      } else {
+        joyUsed = joyUsed + 3; 
+      }
+      if (joyUsed > 5){
+        joyUsed = 0;   
+      }
+    }
+     
+    for (int i = 0; i < 6; i++) {
+      Serial.println("in the for loop" + i); 
       num = random(0,4);
      
       switch(num){
 
         case 0:
 
-          if(false){ 
+          if(joyUsed == i){ 
 
             matrix.fillRect(pts[i].x, pts[i].y, 6, 6, 1);
 
@@ -111,7 +158,7 @@ void loop() {
 
         case 1:
 
-          if(false){
+          if(joyUsed == i){
 
             matrix.fillRect(pts[i].x, pts[i].y + 2, 6, 3, 1);
 
@@ -129,7 +176,7 @@ void loop() {
 
         case 2:
 
-          if(false){
+          if(joyUsed == i){
 
             matrix.fillCircle(pts[i].x + 2 , pts[i].y + 3, 3, 1);
 
@@ -147,7 +194,7 @@ void loop() {
 
         case 3:
 
-          if(false){
+          if(joyUsed == i){
 
           matrix.fillTriangle(pts[i].x + 5, pts[i].y, pts[i].x, pts[i].y + 5, pts[i].x + 5, pts[i].y + 5, 1);
 
@@ -171,8 +218,6 @@ void loop() {
 
     delay(500);
 
-  //}
-
   /*
 
   matrix.drawPixel(analogRead(A0) % 23, analogRead(A1) % 15, 1);
@@ -184,12 +229,6 @@ void loop() {
   delay(10);*/
 
   
-
-  //while(true){
-
-    
-
-  //}
 
   /*
 
