@@ -511,6 +511,9 @@ void loop() {
     } 
 
 
+    if (buttonApin == HIGH){
+      
+    }
 
     delay(500);
 
